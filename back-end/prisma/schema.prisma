@@ -1,0 +1,112 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id         Int         @id @default(autoincrement())
+  email      String      @unique @db.VarChar(255)
+  password   String      @db.VarChar(255)
+  username   String      @unique @db.VarChar(255)
+  userphoto  String      @unique @db.VarChar(255)
+  User1      Friend[]    @relation("User1Friends")
+  User2      Friend[]    @relation("User2Friends")
+  UserFigurinha UserFigurinha[]
+  TradesProposed  Trade[]
+  Sessions   Session[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model Friend {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  user1Id    Int
+  User1      User       @relation("User1Friends", fields: [user1Id], references: [id], onDelete: Cascade)
+  user2Id    Int
+  User2      User       @relation("User2Friends", fields: [user2Id], references: [id], onDelete: Cascade)
+  status      ProposalStatus
+  Trades      Trade[]
+}
+
+model Album {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  name       String      @unique @db.VarChar(255)
+  cover      String      @unique @db.VarChar(255)
+  Pages      Page[]     
+}
+
+model Page {
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  albumid     Int
+  Album       Album       @relation(fields: [albumid], references: [id], onDelete: Cascade)      
+  pageNumber Int
+  title       String      @db.VarChar(255)
+  color       String      @db.VarChar(6)
+  Figurinhas  Figurinha[]
+}
+
+model Figurinha {
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  pageId      Int
+  Page        Page        @relation(fields: [pageId], references: [id], onDelete: Cascade)      
+  figurinhaNumber Int
+  name              String      @db.VarChar(255)
+  description       String      @db.VarChar(255)
+  UserFigurinha   UserFigurinha[]
+}
+
+model UserFigurinha {
+  id           Int         @id @default(autoincrement())
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  userId       Int
+  User         User       @relation(fields: [userId], references: [id], onDelete: Cascade)      
+  figurinhaId  Int
+  Figurinha    Figurinha        @relation(fields: [figurinhaId], references: [id], onDelete: Cascade)      
+  quantidade   Int
+
+}
+
+model Trade {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  proposerArray Int[]
+  friendArray   Int[]
+  friendId      Int
+  Friend        Friend   @relation(fields: [friendId], references: [id], onDelete: Cascade)     
+  proposerId    Int 
+  Proposer      User   @relation(fields: [proposerId], references: [id], onDelete: Cascade)     
+  status        ProposalStatus
+}
+
+model Session {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum ProposalStatus {
+  ACCEPTED
+  DENIED
+  PENDENT
+}
