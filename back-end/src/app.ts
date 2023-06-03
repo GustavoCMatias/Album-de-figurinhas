@@ -10,6 +10,7 @@ import { loadEnv, connectDb, disconnectDB } from '@/config';
 loadEnv();
 
 import {
+  authenticationRouter,
   usersRouter,
 } from '@/routers';
 
@@ -19,6 +20,7 @@ app
   .use(express.json())
   .get('/health', (_req, res) => res.send('OK!'))
   .use('/users', usersRouter)
+  .use('/auth', authenticationRouter)
   .use(handleApplicationErrors);
 
 export function init(): Promise<Express> {

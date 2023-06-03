@@ -1,8 +1,7 @@
 import { User } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { invalidCredentialsError } from './errors';
-import { exclude } from '@/utils/prisma-utils';
+import { invalidCredentialsError } from '@/errors';
 import userRepository from '@/repositories/user-repository';
 import sessionRepository from '@/repositories/session-repository';
 
@@ -16,7 +15,12 @@ async function signIn(params: SignInParams): Promise<SignInResult> {
   const token = await createSession(user.id);
 
   return {
-    user: exclude(user, 'password'),
+    user: {
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      userphoto: user.userphoto,
+    },
     token,
   };
 }
@@ -48,11 +52,11 @@ async function createSession(userId: number) {
 export type SignInParams = Pick<User, 'email' | 'password'>;
 
 type SignInResult = {
-  user: Pick<User, 'id' | 'email'>;
+  user: Pick<User, 'id' | 'email' | 'username' | 'userphoto'>;
   token: string;
 };
 
-type GetUserOrFailResult = Pick<User, 'id' | 'email' | 'password'>;
+type GetUserOrFailResult = Pick<User, 'id' | 'email' | 'password' | 'username' | 'userphoto'>;
 
 const authenticationService = {
   signIn,
