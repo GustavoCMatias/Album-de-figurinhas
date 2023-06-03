@@ -2,6 +2,8 @@ import { LoginDiv, Screen, Input, Button, Form, LogoPhoto } from '@/components/l
 import { Inter } from 'next/font/google'
 import React from 'react'
 import { SignUpPage } from '@/components/signUpComponents'
+import { useRouter } from 'next/router'
+import apiAuth from '@/services/apiAuth'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -9,6 +11,33 @@ export default function Home() {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [display, setDisplay] = React.useState(false)
+
+  const router = useRouter();
+
+  function signIn(e) {
+    e.preventDefault();
+
+    apiAuth
+        .singIn({email, password})
+        .then((res) => {
+            console.log('SOU O RES.DATA', res.data.token);
+            router.push('/outro')
+
+        })
+        .catch((err) => {
+            console.log(err.response);
+            if (err.response.status === 401) {
+                alert('Verify your email address or password!')
+            } else (
+                alert('Something went wrong, please try again later')
+            );
+
+            if (!email || !password) {
+                alert(`attention: ${err.response.data}`)
+            }
+        });
+}
+
   return (
     <>
 
@@ -25,7 +54,7 @@ export default function Home() {
         <LoginDiv>
 
 
-          <Form onSubmit={() => alert('foi')}>
+          <Form onSubmit={signIn}>
             <p className='text-4xl mb-10 mt-3 text-green-500 font-bold '>Meu Album</p>
             <Input
               place='signin'
@@ -43,7 +72,7 @@ export default function Home() {
               onChange={(e) => setPassword(e.target.value)}
             />
             <Button>Entrar</Button>
-            <p className='text-base mt-10 text-black font-bold underline-offset-2' onClick={() => setDisplay(true)}>Não tenho conta</p>
+            <p className='text-base mt-10 text-black font-bold underline-offset-2 cursor-pointer' onClick={() => setDisplay(true)}>Não tenho conta</p>
           </Form>
         </LoginDiv>
       </Screen >
