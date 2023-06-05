@@ -40,7 +40,12 @@ export function SignUpPage({ display, setDisplay }) {
             .catch((err) => {
                 console.log('ERROR MESSAGE:', err.response.data);
                 if (err.response.status === 409) {
-                    alert('This account is already in use')
+                    if(err.response.data.message === 'There is already an user with given username'){
+                        alert('This username is already being used. Chose another one!')
+                    } else{
+                        alert('This email is already being used. Chose another one!')
+                    }
+                        
                 } else if (err.response.status === 422) {
                     alert('Something went wrong, verify your information and try again')
                 } else (
@@ -51,7 +56,7 @@ export function SignUpPage({ display, setDisplay }) {
 
     return (
         <div className={`w-full h-full z-10 absolute backdrop-filter backdrop-blur flex items-center ${display ? '' : 'hidden'}`} onClick={handleClick}>
-            <div className="bg-white w-3/4 h-3/4 m-auto shadow-black shadow-2xl rounded-3xl ">
+            <div className="bg-white w-5/6 sm:w-3/4 h-5/6 sm:h-3/4 m-auto shadow-black shadow-2xl rounded-3xl ">
                 <form onSubmit={createAccount} className="w-full h-full flex flex-col items-center">
                     <Row>
                         <Input
@@ -107,10 +112,22 @@ export function SignUpPage({ display, setDisplay }) {
     )
 }
 
+// export const Row = w.div(
+//     `
+//     w-4/5
+//     flex
+//     m-auto
+//     justify-center	
+
+
+//     `
+// )
+
 export const Row = w.div(
     `
     w-4/5
     flex
+    flex-wrap	
     m-auto
     justify-center	
 

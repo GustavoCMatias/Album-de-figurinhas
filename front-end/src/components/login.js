@@ -2,19 +2,30 @@ import { w } from "windstitch"
 
 export const LoginDiv = w.div(
     `bg-white 
-    h-screen 
-    w-1/3
+    md:h-screen 
+    md:w-1/3
     flex
     items-center
+    md:static
+
+    h-5/6 
+    w-5/6
+    absolute
     `
 )
 export const Screen = w.div(
     `
-    h-full
+    md:h-full
     bg-neutral-300
     flex
-    justify-end
+    md:justify-end
+    md:items-stretch
     relative
+
+    h-screen
+    w-full
+    items-center
+    justify-center
     `
 )
 
@@ -46,6 +57,7 @@ export const Input = w.input(`
                 `,
                 signup: `
                     w-full
+                    max-w-4/5
                     mb-4
                     ml-4
                     
@@ -67,10 +79,15 @@ export const Button = w.button(`
 `);
 
 export const LogoPhoto = w.div(`
-    w-2/3
-    h-full
+    md:w-2/3
+    max-h-screen
     flex
     flex-col
     items-center
+    overflow-hidden
+    md:static
+
+    relative
+
     
 `)
