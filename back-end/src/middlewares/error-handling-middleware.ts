@@ -13,11 +13,21 @@ export function handleApplicationErrors(
   //     message: err.message,
   //   });
   // }
-
+  if (err.name === 'DuplicatedEmailError') {
+    return res.status(httpStatus.CONFLICT).send({
+      message: err.message,
+      name: err.name
+    });
+  }
+  if (err.name === 'DuplicatedUsernameError') {
+    return res.status(httpStatus.CONFLICT).send({
+      message: err.message
+    });
+  }
   
 
   res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
     error: 'InternalServerError',
-    message: 'Internal Server Error',
+    message: err.message,
   });
 }
