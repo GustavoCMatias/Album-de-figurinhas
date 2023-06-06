@@ -55,7 +55,7 @@ model Page {
   Album       Album       @relation(fields: [albumid], references: [id], onDelete: Cascade)      
   pageNumber Int
   title       String      @db.VarChar(255)
-  color       String      @db.VarChar(6)
+  color       String      @db.VarChar(10)
   Figurinhas  Figurinha[]
 }
 
@@ -67,7 +67,7 @@ model Figurinha {
   Page        Page        @relation(fields: [pageId], references: [id], onDelete: Cascade)      
   figurinhaNumber Int
   name              String      @db.VarChar(255)
-  description       String      @db.VarChar(255)
+  description       String      
   UserFigurinha   UserFigurinha[]
 }
 

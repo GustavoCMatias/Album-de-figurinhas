@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Page" ALTER COLUMN "color" SET DATA TYPE VARCHAR(10);
