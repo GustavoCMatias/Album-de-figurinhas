@@ -56,7 +56,7 @@ export function SignUpPage({ display, setDisplay }) {
 
     return (
         <div className={`w-full h-full z-10 absolute backdrop-filter backdrop-blur flex items-center ${display ? '' : 'hidden'}`} onClick={handleClick}>
-            <div className="bg-white w-5/6 sm:w-3/4 h-5/6 sm:h-3/4 m-auto shadow-black shadow-2xl rounded-3xl ">
+            <div className="bg-white w-5/6 sm:w-3/4 h-5/6 min-h-min sm:h-3/4 m-auto shadow-black shadow-2xl rounded-3xl ">
                 <form onSubmit={createAccount} className="w-full h-full flex flex-col items-center">
                     <Row>
                         <Input
@@ -128,6 +128,7 @@ export const Row = w.div(
     w-4/5
     flex
     flex-wrap	
+    md:flex-nowrap
     m-auto
     justify-center	
 
