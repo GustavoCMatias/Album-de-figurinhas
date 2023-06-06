@@ -10,6 +10,7 @@ import { loadEnv, connectDb, disconnectDB } from '@/config';
 loadEnv();
 
 import {
+  albumRouter,
   authenticationRouter,
   usersRouter,
 } from '@/routers';
@@ -21,6 +22,7 @@ app
   .get('/health', (_req, res) => res.send('OK!'))
   .use('/users', usersRouter)
   .use('/auth', authenticationRouter)
+  .use('/album', albumRouter)
   .use(handleApplicationErrors);
 
 export function init(): Promise<Express> {
