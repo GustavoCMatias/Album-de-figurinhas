@@ -23,3 +23,14 @@ export async function getMyAlbuns(req: AuthenticatedRequest, res: Response, next
     }
 } 
 
+export async function getAlbumById(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+    const userId = req.userId;
+    const {albumId} = req.params;
+    try{
+        const albumInfo = await albumService.getAlbumById(userId, Number(albumId))
+        res.status(200).send(albumInfo)
+    }catch(err){
+        next(err);
+    }
+} 
+

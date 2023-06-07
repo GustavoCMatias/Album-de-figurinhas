@@ -13,6 +13,18 @@ export function handleApplicationErrors(
   //     message: err.message,
   //   });
   // }
+  if (err.name === 'ForbiddenError') {
+    return res.status(httpStatus.FORBIDDEN).send({
+      message: err.message,
+      name: err.name
+    });
+  }
+  if (err.name === 'NotFoundError') {
+    return res.status(httpStatus.NOT_FOUND).send({
+      message: err.message,
+      name: err.name
+    });
+  }
   if (err.name === 'DuplicatedEmailError') {
     return res.status(httpStatus.CONFLICT).send({
       message: err.message,

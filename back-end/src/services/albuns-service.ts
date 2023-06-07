@@ -1,3 +1,4 @@
+import { forbiddenError, notFoundError } from '@/errors';
 import albumRepository from '@/repositories/album-repository';
 
 async function getAlbum() {
@@ -17,8 +18,6 @@ async function getMyAlbuns(userId: number) {
         if(item.Pages[i].Figurinhas[j].UserFigurinha.length >0){
           owned+=1
         }
-        
-
       }
 
     }
@@ -33,8 +32,44 @@ async function getMyAlbuns(userId: number) {
   return formatedAlbuns
 }
 
+async function getAlbumById(userId: number, albumId: number) {
+
+  const albuns = await albumRepository.getAlbumById(albumId, userId);
+  
+  if(!albuns) throw notFoundError()
+  let UserHasAlbum = false
+
+  const pagesWithHiddenFigurinhas = albuns.Pages.map((item => {
+    return {
+      ...item,
+      Figurinhas: item.Figurinhas.map((each) => {
+        if(each.UserFigurinha.length>0) UserHasAlbum = true
+        return {
+          ...each,
+          image: each.UserFigurinha.length>0?each.image:'',
+          name: each.UserFigurinha.length>0?each.name:'',
+          description: each.UserFigurinha.length>0?each.description:'',
+          UserFigurinha: undefined
+        }
+      })
+    }
+  }))
+
+  if(!UserHasAlbum) throw forbiddenError()
+
+
+  const albunsWithHiddenFigurinhas = {
+    ...albuns,
+    Pages: pagesWithHiddenFigurinhas
+  }
+
+
+  return albunsWithHiddenFigurinhas
+}
+
 const albumService = {
   getAlbum,
-  getMyAlbuns
+  getMyAlbuns,
+  getAlbumById
 }
 export default albumService 

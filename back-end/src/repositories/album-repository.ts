@@ -55,10 +55,35 @@ async function getMyAlbunsWithUserId(userId:number) {
       
   })
 }
+
+async function getAlbumById(albumId:number, userId:number) {
+
+  return prisma.album.findUnique({
+      where:{
+        id: albumId
+      },
+      include: {
+        Pages: {
+          include: {
+            Figurinhas: {
+              include: {
+                UserFigurinha:{
+                  where:{
+                    userId
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+  })
+}
  
 const albumRepository = {
   getAllAlbuns,
-  getMyAlbunsWithUserId
+  getMyAlbunsWithUserId,
+  getAlbumById
 }
 
 export default albumRepository

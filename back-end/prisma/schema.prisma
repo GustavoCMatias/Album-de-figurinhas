@@ -66,6 +66,7 @@ model Figurinha {
   pageId      Int
   Page        Page        @relation(fields: [pageId], references: [id], onDelete: Cascade)      
   figurinhaNumber Int
+  image             String
   name              String      @db.VarChar(255)
   description       String      
   UserFigurinha   UserFigurinha[]
