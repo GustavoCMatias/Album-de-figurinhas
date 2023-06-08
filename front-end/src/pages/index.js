@@ -1,9 +1,10 @@
 import { LoginDiv, Screen, Input, Button, Form, LogoPhoto } from '@/components/login'
 import { Inter } from 'next/font/google'
-import React from 'react'
+import React, { useContext } from 'react'
 import { SignUpPage } from '@/components/signUpComponents'
 import { useRouter } from 'next/router'
 import apiAuth from '@/services/apiAuth'
+import { UserData } from '@/contexts/context'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,6 +12,7 @@ export default function Home() {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [display, setDisplay] = React.useState(false)
+  const { setUserInfo } = useContext(UserData)
 
   const router = useRouter();
 
@@ -18,32 +20,32 @@ export default function Home() {
     e.preventDefault();
 
     apiAuth
-        .singIn({email, password})
-        .then((res) => {
-            console.log('SOU O RES.DATA', res.data.token);
-            router.push('/outro')
+      .singIn({ email, password })
+      .then((res) => {
+        setUserInfo(res.data)
+        router.push('/home')
 
-        })
-        .catch((err) => {
-            console.log(err.response);
-            if (err.response.status === 401) {
-                setPassword('')
-                alert('Verify your email address or password!')
-            } else (
-                alert('Something went wrong, please try again later')
-            );
+      })
+      .catch((err) => {
+        console.log(err.response);
+        if (err.response.status === 401) {
+          setPassword('')
+          alert('Verify your email address or password!')
+        } else (
+          alert('Something went wrong, please try again later')
+        );
 
-            if (!email || !password) {
-                alert(`attention: ${err.response.data}`)
-            }
-        });
-}
+        if (!email || !password) {
+          alert(`attention: ${err.response.data}`)
+        }
+      });
+  }
 
   return (
     <>
 
       <Screen>
-        <SignUpPage display={display} setDisplay={setDisplay}/>
+        <SignUpPage display={display} setDisplay={setDisplay} />
         <LogoPhoto>
 
           <img

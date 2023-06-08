@@ -14,7 +14,6 @@ export function SignUpPage({ display, setDisplay }) {
 
     const handleClick = (event) => {
         if (event.target === event.currentTarget) {
-            // Lógica a ser executada quando a div maior for clicada (e não a div menor)
             setDisplay(false)
         }
     };
@@ -112,16 +111,6 @@ export function SignUpPage({ display, setDisplay }) {
     )
 }
 
-// export const Row = w.div(
-//     `
-//     w-4/5
-//     flex
-//     m-auto
-//     justify-center	
-
-
-//     `
-// )
 
 export const Row = w.div(
     `
