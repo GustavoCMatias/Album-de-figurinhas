@@ -1,20 +1,29 @@
 import { LoginDiv, Screen, Input, Button, Form, LogoPhoto } from '@/components/login'
-import { Inter } from 'next/font/google'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { SignUpPage } from '@/components/signUpComponents'
 import { useRouter } from 'next/router'
 import apiAuth from '@/services/apiAuth'
 import { UserData } from '@/contexts/context'
+import { useCookies } from 'react-cookie';
 
-const inter = Inter({ subsets: ['latin'] })
+
 
 export default function Home() {
+  const [cookies, setCookie, removeCookie] = useCookies(['user']);
+
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [display, setDisplay] = React.useState(false)
-  const { setUserInfo } = useContext(UserData)
+  const { setUserInfo, userInfo } = useContext(UserData)
 
   const router = useRouter();
+
+  useEffect(() => {
+    if(cookies.userInfo){
+      setUserInfo(cookies.userInfo)
+      router.push('/home')
+    }
+  }, [])
 
   function signIn(e) {
     e.preventDefault();
@@ -22,6 +31,7 @@ export default function Home() {
     apiAuth
       .singIn({ email, password })
       .then((res) => {
+        setCookie('userInfo', res.data)
         setUserInfo(res.data)
         router.push('/home')
 
