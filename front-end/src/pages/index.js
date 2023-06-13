@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react'
 import { SignUpPage } from '@/components/signUpComponents'
 import { useRouter } from 'next/router'
 import apiAuth from '@/services/apiAuth'
-import { UserData } from '@/contexts/context'
+import { UserData } from '@/contexts/userContext'
 import { useCookies } from 'react-cookie';
 
 

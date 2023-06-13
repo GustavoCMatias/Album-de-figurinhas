@@ -1,9 +1,11 @@
+import { useRouter } from 'next/router';
 import { FaUserFriends } from 'react-icons/fa';
 
 export function Dashboard() {
+    const router = useRouter()
     return (
-        <div className="h-[12%] sm:h-1/6 max-h-24 w-full bg-white flex justify-between px-10 fixed top-0 left-0 items-center z-10 border-b-2 border-green-500"> {/* change h-1/6 ->  h-[12%]*/}
-            <p className='text-2xl sm:text-4xl text-green-500 font-bold '>Meu Album</p>
+        <div className="h-[12%] sm:h-1/6 max-h-24 w-full bg-white flex justify-between px-10 fixed top-0 left-0 items-center z-20 border-b-2 border-green-500 "> {/* change h-1/6 ->  h-[12%]*/}
+            <p className='text-2xl sm:text-4xl text-green-500 font-bold hover:cursor-pointer' onClick={() => {router.push('/home')}}>Meu Album</p>
             <div className='flex h-full items-center'>
                 <div className='hidden sm:flex'>
                     <FaUserFriends size={50} />
