@@ -14,7 +14,7 @@ export default function Home() {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [display, setDisplay] = React.useState(false)
-  const { setUserInfo, userInfo } = useContext(UserData)
+  const { setUserInfo } = useContext(UserData)
 
   const router = useRouter();
 

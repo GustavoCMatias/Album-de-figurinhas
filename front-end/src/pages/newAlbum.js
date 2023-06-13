@@ -5,7 +5,7 @@ import apiAlbum from '@/services/apiAlbum'
 import { useRouter } from 'next/router'
 import { albunsData } from '@/contexts/albumContext'
 
-export default function Home2() {
+export default function newAlbum() {
     const { userInfo } = useContext(UserData)
     const { myAlbunsInfo } = useContext(albunsData)
     const [Albuns, setAlbuns] = useState([])
@@ -17,7 +17,6 @@ export default function Home2() {
         else {
             apiAlbum.getAllAlbuns(userInfo.token)
                 .then((res) => {
-                    console.log(res.data)
                     setAlbuns(res.data)
 
 
@@ -32,8 +31,8 @@ export default function Home2() {
     return (
         <>
             <Dashboard />
-            <div className='flex flex-col justify-center h-full w-full min-h-screen items-left pt-0 heropattern-temple-gray-600/10 sm:pl-14 sm:pt-10 sm:h-full'>
-                <p className='text-3xl text-black font-bold mb-20 mt-24 mx-auto sm:mx-0'>Escolha um álbum para começar!</p>
+            <div className='flex flex-col justify-center h-full w-full min-h-screen items-left heropattern-temple-gray-600/10 sm:pl-14 pt-[10%] sm:h-full'>
+                <p className='text-3xl text-black font-bold mb-20 mt-12 mx-auto sm:mx-0 sm:mt-0'>Escolha um álbum para começar!</p>
                 <div className='flex flex-wrap w-11/12 invisible-scrollbar  mb-12 flex-col mx-auto sm:flex-row sm:w-auto sm:mx-0 sm:h-3/6 '>
                     {Albuns.map((item, index) => {
                         return (
