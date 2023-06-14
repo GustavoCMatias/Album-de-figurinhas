@@ -676,8 +676,8 @@ export default function Album() {
     const { id } = router.query
 
     useEffect(() => {
-        console.log(sampleResponse.Pages[3].Figurinhas.length/2+1)
-        console.log(sampleResponse.Pages[3].Figurinhas.slice(0, Math.floor(sampleResponse.Pages[3].Figurinhas.length/2)))
+        console.log(sampleResponse.Pages[3].Figurinhas.length / 2 + 1)
+        console.log(sampleResponse.Pages[3].Figurinhas.slice(0, Math.floor(sampleResponse.Pages[3].Figurinhas.length / 2)))
         if (!userInfo) { router.push('/') }
         else {
             apiAlbum.getSpecificAlbum(id, userInfo.token)
@@ -696,23 +696,54 @@ export default function Album() {
         <>
             <Dashboard />
             <div className='h-screen w-screen heropattern-temple-gray-600/10 max-pt-6 flex justify-center items-center'>
-                <div className={`bg-[${sampleResponse.Pages[3].color}] w-5/12 h-[90%]`}>
-                    <p className='text-4xl text-black font-bold ml-20 mt-11 mb-24'> {sampleResponse.Pages[3].title} </p>
+                <div className={`bg-red-300 w-5/12 h-[90%] pl-[1%]`}>
+                    <p className='text-4xl text-black font-bold ml-16 pt-[2%] mb-14'> {sampleResponse.Pages[3].title} </p>
                     <div className="flex flex-wrap h-[90%] max-h-full max-w-full">
-                        {sampleResponse.Pages[3].Figurinhas.slice(0, Math.floor(sampleResponse.Pages[3].Figurinhas.length/2)).map((item) => {
-                            return(
-                                <img
-                                    src={item.image === ''?'/album.jpeg':item.image }
-                                    alt="Album Photo"
-                                    className='h-[30%] mr-7'
-                                />
+                        {sampleResponse.Pages[3].Figurinhas.slice(0, Math.floor(sampleResponse.Pages[3].Figurinhas.length / 2)).map((item) => {
+                            return (
+                                <>
+                                    {item.image === '' ?
+                                        <div className="h-[30%] w-[27%] bg-slate-500 border-zinc-950 border mr-7">
+                                            <p className='text-4xl text-black font-bold'> {item.figurinhaNumber} </p>
+                                        </div> :
+                                        <img
+                                            src={item.image}
+                                            alt="Album Photo"
+                                            className='h-[30%] mr-7 max-w-[27%]'
+                                        />}
+
+                                </>
                             )
+
+
                         })}
                     </div>
 
                 </div>
                 <div className="h-[90%] border border-black"></div>
-                <div className={`bg-red-300 w-5/12 h-[90%]`}></div>
+                <div className={`bg-red-300 w-5/12 h-[90%] pl-[1%]`}>
+                <p className='text-4xl text-black font-bold ml-16 pt-[2%] mb-14'> {sampleResponse.Pages[3].title} </p>
+                    <div className="flex flex-wrap h-[90%] max-h-full max-w-full ">
+                        {sampleResponse.Pages[3].Figurinhas.slice(Math.floor(sampleResponse.Pages[3].Figurinhas.length / 2, sampleResponse.Pages[3].Figurinhas.length)).map((item) => {
+                            return (
+                                <>
+                                    {item.image === '' ?
+                                        <div className="h-[30%] w-[27%] bg-slate-500 border-zinc-950 border mr-7 flex items-center justify-center">
+                                            <p className='text-4xl text-black font-bold'> {item.figurinhaNumber} </p>
+                                        </div> :
+                                        <img
+                                            src={item.image}
+                                            alt="Album Photo"
+                                            className='h-[30%] mr-7 max-w-[27%]'
+                                        />}
+
+                                </>
+                            )
+
+
+                        })}
+                    </div>
+                </div>
             </div>
         </>
     )
