@@ -19,7 +19,7 @@ function getAllAlbuns(token) {
 }
 
 function getSpecificAlbum(albumId, token) {
-    return axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/${albumId}`, {
+    return axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/album/${albumId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

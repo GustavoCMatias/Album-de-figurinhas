@@ -24,10 +24,14 @@ body {
 }
 
 @layer utilities {
-  @variants responsive {
+  @layer responsive {
 
     .invisible-scrollbar::-webkit-scrollbar {
       display: none;
+    }
+
+    .max-pt-6 {
+      padding-top: min(12%, 6rem);
     }
     }
   }
