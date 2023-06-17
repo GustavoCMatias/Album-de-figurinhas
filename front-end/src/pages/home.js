@@ -4,6 +4,7 @@ import { UserData } from '@/contexts/userContext'
 import apiAlbum from '@/services/apiAlbum'
 import { useRouter } from 'next/router'
 import { albunsData } from '@/contexts/albumContext'
+import { Album } from '@/components/homeComponents'
 
 export default function Home() {
     const { userInfo } = useContext(UserData)
@@ -34,21 +35,9 @@ export default function Home() {
                 <p className='text-3xl text-black font-bold mb-7 mt-12 mx-auto sm:mx-0 sm:mt-0'>Meus Albuns</p>         
                 <div className='flex w-11/12 invisible-scrollbar  mb-12 flex-col mx-auto sm:flex-row sm:w-auto sm:mx-0 sm:h-3/6 sm:overflow-x-auto'>    
                     {myAlbuns.map((item, index) => {
+                        const percentage = Math.ceil(item.owned_figurinhas / item.total_figurinhas * 100) + '%'
                         return (
-                            <div key={index} className='flex-container flex flex-col justify-between items-center mx-auto h-full 
-                            min-w-fit bg-gray-100 pb-4 border border-gray-500 hover:shadow-xl hover:shadow-black mb-10 sm:mr-5 sm:mx-0 sm:pb-4 sm:mb-0'
-                            onClick={() => {router.push(`/album/${item.id}`)}}> 
-                                <img
-                                    src={item.cover}
-                                    alt="Album Photo"
-                                    className='w-full min-h-min object-contain sm:w-auto sm:h-3/4'
-                                />   
-                                <p className='text-lg mx-auto my-2 sm:my-0'>{item.name}</p> 
-                                <div className="w-[90%] bg-gray-400 dark:bg-gray-900">
-                                    <div className={`w-[${Math.ceil(item.owned_figurinhas / item.total_figurinhas * 100)}%] bg-blue-600 text-xs font-medium text-white text-center p-0.5 leading-none`} > {Math.round(item.owned_figurinhas / item.total_figurinhas * 10000) / 100}%</div>
-                                </div>
-
-                            </div>
+                            <Album percentage={percentage} item={item} index={index}/>
                         )
 
 
