@@ -1,4 +1,4 @@
-import { BackCover, Cover, LastPage, Page } from "@/components/albumComponents";
+import { BackCover, Cover, LastPage, Page, FigurinhaInfo } from "@/components/albumComponents";
 import { Dashboard } from "@/components/Dashboard";
 import { UserData } from "@/contexts/userContext";
 import apiAlbum from "@/services/apiAlbum";
@@ -10,6 +10,8 @@ export default function Album() {
     const { userInfo } = useContext(UserData)
     const router = useRouter();
     const [album, setAlbum] = useState([]);
+    const [display, setDisplay] = useState(false)
+    const [figInfo, setFigInfo] = useState({})
 
     const { id } = router.query
 
@@ -59,9 +61,8 @@ export default function Album() {
     return (
         <>
             <Dashboard />
+            <FigurinhaInfo description={figInfo.description} name={figInfo.name} image={figInfo.image} display={display} setDisplay={setDisplay}/>
             <div className={`h-screen w-screen heropattern-temple-gray-600/10 max-pt-6 flex items-center justify-center`}>
-
-
                 <div className="h-[90%] w-10/12 perspective flex justify-start items-center"> {/*CONTAINER */}
 
                     <Cover cover={album.cover}/>
@@ -73,11 +74,11 @@ export default function Album() {
                         {!album.Pages?'':
                         album.Pages.map((each, index) => {
                             return (
-                                <Page each={each} index={index} album={album} key={index}/>
+                                <Page each={each} index={index} album={album} key={index} setDisplay={setDisplay} setFigInfo={setFigInfo}/>
                             )
                         })}
 
-                        {!album.Pages?'':<LastPage pages={album.Pages}/>}
+                        {!album.Pages?'':<LastPage pages={album.Pages} setDisplay={setDisplay} setFigInfo={setFigInfo}/>}
                     </div>
 
                 </div>
