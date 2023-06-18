@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+
+
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -13,7 +15,7 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
-      boxSizing: ['border-box']
+      boxSizing: ['border-box'],
     },
   },
   plugins: [require('tailwindcss-hero-patterns'), require('flowbite/plugin')],

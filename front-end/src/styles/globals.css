@@ -33,6 +33,38 @@ body {
     .max-pt-6 {
       padding-top: min(12%, 6rem);
     }
-    }
+  }
+}
+
+@layer components {
+  .perspective {
+    -webkit-perspective: 1800px;
+    perspective: 1800px;
   }
 
+  .page {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+    -webkit-transform-origin: right center;
+  transform-origin: right center;
+  }
+
+  .page.turn {
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
+
+  .front, .back {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  .back {
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
+
+  /* ... */
+}
