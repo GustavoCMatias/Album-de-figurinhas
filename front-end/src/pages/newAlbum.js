@@ -4,6 +4,7 @@ import { UserData } from '@/contexts/userContext'
 import apiAlbum from '@/services/apiAlbum'
 import { useRouter } from 'next/router'
 import { albunsData } from '@/contexts/albumContext'
+import { NewAlbum } from '@/components/homeComponents'
 
 export default function newAlbum() {
     const { userInfo } = useContext(UserData)
@@ -36,20 +37,7 @@ export default function newAlbum() {
                 <div className='flex flex-wrap w-11/12 invisible-scrollbar  mb-12 flex-col mx-auto sm:flex-row sm:w-auto sm:mx-0 sm:h-3/6 '>
                     {Albuns.map((item, index) => {
                         return (
-                            <div key={index} className={`flex flex-container flex-col justify-between items-center mx-auto min-h-[75%]
-                            bg-gray-100 pb-4 border hover:shadow-xl hover:shadow-black mb-10 sm:mr-5 sm:mx-0 sm:pb-4 relative
-                            ${myAlbunsInfo.filter(e => e.id === item.id).length > 0 ? 'border-gray-500' : 'border-green-500'}`}>
-                                <div className={`h-full w-full bg-black absolute z-10 bg-opacity-40 ${myAlbunsInfo.filter(e => e.id === item.id).length > 0 ? '' : 'hidden'}`}></div>
-                                <img
-                                    src={item.cover}
-                                    alt="Album Photo"
-                                    className='min-h-min h-full'
-                                />
-                                <p className='text-lg mx-auto mt-4 '>{item.name}</p>
-                                <p className={`text-lg mx-auto mt-4 ${myAlbunsInfo.filter(e => e.id === item.id).length > 0 ? 'text-black font-bold' : 'text-white bg-green-600 p-2 hover:cursor-pointer'}`}  >{myAlbunsInfo.filter(e => e.id === item.id).length > 0 ? 'Iniciado' : 'Começar'}</p>
-
-
-                            </div>
+                            <NewAlbum index={index} item={item} key={index} myAlbunsInfo={myAlbunsInfo}/>
                         )
 
 

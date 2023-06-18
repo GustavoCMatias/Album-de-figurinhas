@@ -37,7 +37,7 @@ export default function Home() {
                     {myAlbuns.map((item, index) => {
                         const percentage = Math.ceil(item.owned_figurinhas / item.total_figurinhas * 100) + '%'
                         return (
-                            <Album percentage={percentage} item={item} index={index} router={router}/>
+                            <Album percentage={percentage} item={item} index={index} router={router} key={index}/>
                         )
 
 
