@@ -22,7 +22,8 @@ export function Album({ percentage, item, index, router }) {
 export function NewAlbum({ item, index, myAlbunsInfo }) {
     return (
         <div key={index} className={`flex flex-container flex-col justify-between items-center mx-auto min-h-[75%]
-                            bg-gray-100 pb-4 border hover:shadow-xl hover:shadow-black mb-10 sm:mr-5 sm:mx-0 sm:pb-4 relative
+                            bg-gray-100 pb-4 border   mb-10 sm:mr-5 sm:mx-0 sm:pb-4 relative
+                            ${myAlbunsInfo.filter(e => e.id === item.id).length > 0 ? '' : 'hover:shadow-xl hover:shadow-black'}
                             ${myAlbunsInfo.filter(e => e.id === item.id).length > 0 ? 'border-gray-500' : 'border-green-500'}`}>
             <div className={`h-full w-full bg-black absolute z-10 bg-opacity-40 ${myAlbunsInfo.filter(e => e.id === item.id).length > 0 ? '' : 'hidden'}`}></div>
             <img
