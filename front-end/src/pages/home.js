@@ -45,7 +45,6 @@ export default function Home() {
                 </div>
 
                 <div className='hidden sm:flex' >
-                    <button className='w-80 h-16 bg-green-500 rounded-xl text-xl text-black font-bold mb-12 mr-7'>Comprar Figurinhas</button>
                     <button className='w-80 h-16 bg-green-500 rounded-xl text-xl text-black font-bold mb-12' onClick={() => { router.push('/newAlbum') }}>Começar um novo álbum</button>
                 </div>
             </div>

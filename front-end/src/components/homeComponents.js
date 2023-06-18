@@ -1,6 +1,6 @@
 export function Album({ percentage, item, index, router }) {
     return (
-        <div key={index} className='flex-container flex flex-col justify-between items-center mx-auto h-full 
+        <div key={index} className='relative flex-container flex flex-col justify-between items-center mx-auto h-full 
                             min-w-fit bg-gray-100 pb-4 border-4 border-gray-500  hover:border-green-500 mb-10 sm:mr-5 sm:mx-0 sm:pb-4 sm:mb-0'
             onClick={() => { router.push(`/album/${item.id}`) }}>
             <img
@@ -12,6 +12,14 @@ export function Album({ percentage, item, index, router }) {
             <div className="w-[90%] bg-gray-400 dark:bg-gray-900">
                 <div className={`w-[--album-percentage] bg-blue-600 text-xs font-medium text-white text-center p-0.5 leading-none`}
                     style={{ width: percentage }}> {Math.round(item.owned_figurinhas / item.total_figurinhas * 10000) / 100}%</div>
+            </div>
+            <div className="absolute top-0 right-0 bottom-0 w-full bg-green-900 opacity-0 bg-opacity-70 hover:opacity-100 h-full flex flex-col justify-center items-center">
+                <button className="bg-white text-xl text-green-500 font-bold w-[90%] bg-opacity-100 opacity-100 p-2 mb-6 rounded-lg">
+                    Ver álbum
+                </button>
+                <button className="bg-white text-xl text-green-500 font-bold w-[90%] bg-opacity-100 opacity-100 p-2 rounded-lg">
+                    Comprar figurinhas
+                </button>
             </div>
 
         </div>
